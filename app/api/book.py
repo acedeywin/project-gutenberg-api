@@ -60,9 +60,7 @@ async def fetch_book_content(
 
         # Extract the content for the requested page
         paginated_content = content[start_index:end_index]
-        total_pages = (
-            len(content) + page_size - 1
-        ) // page_size  # Total number of pages
+        total_pages = len(content) + page_size - 1
 
         data = {
             "book_id": book_id,

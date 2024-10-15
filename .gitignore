@@ -61,3 +61,4 @@ dmypy.json
 llama_service.py
 
 openai_service.py
+.vercel
