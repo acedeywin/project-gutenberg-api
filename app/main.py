@@ -22,4 +22,11 @@ app.add_middleware(
 )
 
 
+@app.get("/")
+async def read_items():
+    """API Accessibility"""
+
+    return {"Message": "Project Gutenberg API"}
+
+
 app.include_router(book_api, prefix="/api/v1/book")
