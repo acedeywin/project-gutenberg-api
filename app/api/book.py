@@ -10,6 +10,7 @@ from app.services.groq_service import groq_service
 router = APIRouter()
 
 BASE_URL = settings.BASE_URL
+headers = {"Accept": "application/json"}
 
 
 class Content(BaseModel):
@@ -18,7 +19,7 @@ class Content(BaseModel):
     content: str
 
 
-@router.get("/{book_id}")
+@router.get("/")
 async def fetch_book_content(
     book_id: int, page: int = Query(1, ge=1), page_size: int = Query(15000, ge=1000)
 ):
@@ -32,7 +33,7 @@ async def fetch_book_content(
     content_url = f"{BASE_URL}/files/{book_id}/{book_id}-0.txt"
     try:
         # Fetch the book content from Project Gutenberg
-        response = requests.get(content_url, timeout=10)
+        response = requests.get(content_url, headers=headers, timeout=20)
 
         # Raise an HTTPException if status code is not 200
         if response.status_code == 404:
@@ -79,7 +80,7 @@ async def fetch_book_content(
         ) from e
 
 
-@router.get("/metadata/{book_id}")
+@router.get("/metadata/")
 def fetch_book_metadata(book_id: int):
     """
     Fetch book metadata
@@ -88,7 +89,7 @@ def fetch_book_metadata(book_id: int):
     metadata_url = f"{BASE_URL}/ebooks/{book_id}"
     try:
         # Fetch the book metadata from Project Gutenberg
-        response = requests.get(metadata_url, timeout=10)
+        response = requests.get(metadata_url, headers=headers, timeout=10)
 
         # Raise an HTTPException if status code is not 200
         if response.status_code == 404:

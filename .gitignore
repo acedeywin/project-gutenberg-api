@@ -59,6 +59,11 @@ dmypy.json
 # unused llm services
 
 llama_service.py
-
 openai_service.py
+
 .vercel
+
+# For GCR deployment
+
+cloudbuild.yaml
+gcr-service-policy.yaml
